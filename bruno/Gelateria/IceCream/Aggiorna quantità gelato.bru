@@ -1,0 +1,20 @@
+meta {
+  name: Aggiorna quantità gelato
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:8080/gelato/1
+  body: json
+  auth: none
+}
+
+body:json {
+  
+    {
+    "iceCreamTaste": "LEMON",
+    "price": 0.1,
+    "quantity": 10
+    }
+}

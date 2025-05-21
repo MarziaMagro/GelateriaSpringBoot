@@ -1,0 +1,19 @@
+meta {
+  name: Create del gelato
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/gelato
+  body: json
+  auth: none
+}
+
+body:json {
+  
+    {
+    "iceCreamTaste": "LEMON",
+    "price": 0.1,
+    "quantity": 1}
+}

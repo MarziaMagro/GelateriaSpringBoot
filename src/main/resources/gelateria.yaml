@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: Gelateria API
+  version: 1.0.0
+  description: API per gestire i gusti di gelato.
+
+paths:
+  /gelato:
+    post:
+      summary: Aggiungi un nuovo gelato
+      operationId: createIceCream
+      tags:
+        - IceCream
+      requestBody:
+        description: Dati del nuovo gelato
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IceCreamDto'
+      responses:
+        '200':
+          description: Gelato creato con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IceCreamDto'
+
+    get:
+      summary: Ottieni tutti i gelati
+      operationId: getAllIceCreams
+      tags:
+        - IceCream
+      responses:
+        '200':
+          description: Lista di tutti i gelati disponibili
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IceCreamDto'
+
+
+  /gelato/{id}:
+    get:
+      summary: Ottieni un gelato per ID
+      operationId: getIceCreamById
+      tags:
+        - IceCream
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID del gelato
+      responses:
+        '200':
+          description: Dettagli del gelato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IceCreamDto'
+        '404':
+          description: Gelato non trovato
+
+    patch:
+      summary: Aggiorna quantità di un gelato
+      operationId: sellIceCream
+      tags:
+        - IceCream
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID del gelato
+      requestBody:
+        description: Dati aggiornati (quantità)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellIceCreamRequestDto'
+      responses:
+        '200':
+          description: Dettagli del gelato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IceCreamDto'
+        '404':
+          description: Gelato non trovato
+
+components:
+  schemas:
+    IceCreamDto:
+      type: object
+      properties:
+        id:
+          type: integer
+
+        iceCreamTaste:
+          type: string
+          enum:
+            - CHOCOLATE
+            - STRAWBERRY
+            - LEMON
+            - CREAM
+        price:
+          type: number
+          format: double
+        quantity:
+          type: integer
+
+    SellIceCreamRequestDto:
+      type: object
+      properties:
+        quantity:
+          type: integer
+        price:
+          type: number
+          format: double
+
