@@ -101,7 +101,6 @@ components:
       properties:
         id:
           type: integer
-
         iceCreamTaste:
           type: string
           enum:
